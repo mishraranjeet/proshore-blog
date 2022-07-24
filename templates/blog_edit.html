@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>Proshore Blogs</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"/>
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"/>
+    <!-- MDB -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/mdb.min.css"/>
+    <link rel="stylesheet" href="../static/css/style.css"/>
+
+
+    <!-- Custom styles -->
+</head>
+<body>
+<header>
+    <!-- Intro settings -->
+    <style>
+        #intro {
+            /* Margin to fix overlapping fixed navbar */
+            margin-top: 58px;
+        }
+
+        @media (max-width: 991px) {
+            #intro {
+                /* Margin to fix overlapping fixed navbar */
+                margin-top: 45px;
+            }
+        }
+    </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container-fluid">
+            <!-- Navbar brand -->
+            <a class="navbar-brand" target="_blank" href="https://proshore.eu/">
+                Proshore
+            </a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+                    aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarExample01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Jumbotron -->
+    <div id="intro" class="p-5 text-center bg-light">
+    </div>
+    <!-- Jumbotron -->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main class="my-5">
+    <div class="container">
+        <div class="row height d-flex justify-content-center align-items-center">
+            {#            <div class="col-md-10">#}
+            {#                <div class="search">#}
+            {#                    <form method="GET" action="" id="searchform">#}
+            {#                        {% if request.session.search %}#}
+            {#                            <input type="text" class="form-control" name="q" value="{{ request.session.search }}"#}
+            {#                                   placeholder="Search Blogs">#}
+            {#                        {% else %}#}
+            {#                            <input type="text" class="form-control" name="q" value="{{ request.GET.q }}"#}
+            {#                                   placeholder="Search Blogs">#}
+            {#                        {% endif %}#}
+            {##}
+            {#                        <button type="submit" class="btn btn-primary">Search</button>#}
+            {#                    </form>#}
+            {#                </div>#}
+            {#            </div>#}
+            {#            <div class="col-md-2">#}
+            {#                <div class="dropdown show">#}
+            {#                    <a class="btn btn-primary dropdown-toggle sorting" href="#" role="button" id="dropdownMenuLink"#}
+            {#                       data-toggle="dropdown" aria-haspopup="true">#}
+            {#                        Sort By#}
+            {#                    </a>#}
+            {##}
+            {#                    <div class="dropdown-menu link" aria-labelledby="dropdownMenuLink">#}
+            {#                        {% if request.session.search %}#}
+            {#                            <a class="dropdown-item link" href="?q={{ request.session.search }}&sort=newest">Newest</a>#}
+            {#                            <a class="dropdown-item link" href="?q={{ request.session.search }}&sort=oldest">Oldest</a>#}
+            {#                            <a class="dropdown-item link" href="?q={{ request.session.search }}&sort=author">Author</a>#}
+            {#                        {% else %}#}
+            {#                            <a class="dropdown-item link" href="?sort=newest">Newest</a>#}
+            {#                            <a class="dropdown-item link" href="?sort=oldest">Oldest</a>#}
+            {#                            <a class="dropdown-item link" href="?sort=author">Author</a>#}
+            {#                        {% endif %}#}
+            {##}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
+        </div>
+
+        <!--Section: Content-->
+        <section class="text-center">
+            <h4 class="mb-5">
+                {#            <strong>Latest blogs</strong>#}
+            </h4>
+            <div class="row">
+                <div class="col-md-8 mb-4">
+                    <div class="card">
+                        <form>
+                            <!-- Email input -->
+                            <div class="form-outline mb-2">
+                                <input type="text" name="title" id="form1Example1" class="form-control"
+                                value="{{ row.title }}"/>
+                                <label class="form-label" for="form1Example1">Title</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" name="blog_image_url" id="form1Example1" class="form-control"
+                                value="{{ row.blog_image_url }}"/>
+                                <label class="form-label" for="form1Example1">Blog Image URL</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <textarea name="description" class="form-control" rows="10">{{ row.description }}</textarea>
+                                <label class="form-label" for="form1Example1">Description</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" name="author_name" id="form1Example1" class="form-control"
+                                value="{{ row.author_name }}"/>
+                                <label class="form-label" for="form1Example1">Author Name</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" name="author_image_url" id="form1Example1" class="form-control"
+                                value="{{ row.author_image_url }}"/>
+                                <label class="form-label" for="form1Example1">Author Image URL</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input type="text" name="designation" id="form1Example1" class="form-control"
+                                value="{{ row.designation }}"/>
+                                <label class="form-label" for="form1Example1">Designation</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
+                                <input type="text" name="reading_time" id="form1Example1" class="form-control"
+                                value="{{ row.reading_time }}"/>
+                                <label class="form-label" for="form1Example1">Reading Time</label>
+                            </div>
+
+
+                            <!-- 2 column grid layout for inline styling -->
+                            <div class="row mb-4">
+                                <div class="col d-flex justify-content-center">
+                                </div>
+                            </div>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Section: Content-->
+    </div>
+</main>
+<!--Main layout-->
+
+<!--Footer-->
+<footer class="bg-light text-lg-start">
+
+    <hr class="m-0"/>
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        ©
+        <a class="text-dark" href="https://mdbootstrap.com/">Ranjeet Mishra</a>
+    </div>
+</footer>
+<script type="text/javascript" src="../static/js/mdb.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q
 
 
@@ -38,3 +38,30 @@ def blog_list(request):
     }
     # print("context", context)
     return render(request, 'blog-list.html', context)
+
+
+def blog_detail(request, blog_id):
+    blog = Blog.objects.filter(pk=int(blog_id)).first()
+
+    context = {
+        "row": blog,
+        "blog_id": blog_id
+    }
+    # print("context", context)
+    return render(request, 'blog_detail.html', context)
+
+
+def blog_delete(request, blog_id):
+    blog = Blog.objects.filter(pk=int(blog_id)).delete()
+    return redirect('blog_list')
+
+
+def blog_edit(request, blog_id):
+    blog = Blog.objects.filter(pk=int(blog_id)).first()
+
+    context = {
+        "row": blog,
+        "blog_id": blog_id
+    }
+    # print("context", context)
+    return render(request, 'blog_edit.html', context)
