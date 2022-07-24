@@ -72,23 +72,37 @@
             <div class="col-md-10">
                 <div class="search">
                     <form method="GET" action="" id="searchform">
-                    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}" placeholder="Search Blogs">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                        {% if request.session.search %}
+                            <input type="text" class="form-control" name="q" value="{{ request.session.search }}"
+                                   placeholder="Search Blogs">
+                        {% else %}
+                            <input type="text" class="form-control" name="q" value="{{ request.GET.q }}"
+                                   placeholder="Search Blogs">
+                        {% endif %}
+
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="dropdown show">
-                  <a class="btn btn-primary dropdown-toggle sorting" href="#" role="button" id="dropdownMenuLink"
-                     data-toggle="dropdown" aria-haspopup="true">
-                    Sort By
-                  </a>
+                    <a class="btn btn-primary dropdown-toggle sorting" href="#" role="button" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true">
+                        Sort By
+                    </a>
 
-                  <div class="dropdown-menu link" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item link" href="?sort=newest">Newest</a>
-                    <a class="dropdown-item link" href="?sort=oldest">Oldest</a>
-                    <a class="dropdown-item link" href="?sort=author">Author</a>
-                  </div>
+                    <div class="dropdown-menu link" aria-labelledby="dropdownMenuLink">
+                        {% if request.session.search %}
+                            <a class="dropdown-item link" href="?q={{ request.session.search }}&sort=newest">Newest</a>
+                            <a class="dropdown-item link" href="?q={{ request.session.search }}&sort=oldest">Oldest</a>
+                            <a class="dropdown-item link" href="?q={{ request.session.search }}&sort=author">Author</a>
+                        {% else %}
+                            <a class="dropdown-item link" href="?sort=newest">Newest</a>
+                            <a class="dropdown-item link" href="?sort=oldest">Oldest</a>
+                            <a class="dropdown-item link" href="?sort=author">Author</a>
+                        {% endif %}
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,140 +112,62 @@
             <h4 class="mb-5">
                 {#            <strong>Latest blogs</strong>#}
             </h4>
-            <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid"/>
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </a>
+            {% for blog in blogs %}
+                <div class="row">
+                    {% for row in blog %}
+                        <div class="col-lg-4 col-md-12 mb-4">
+                            <div class="card">
+                                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                    <img src="{{ row.blog_image_url }}" class="img-fluid"/>
+                                    <a href="#!">
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ row.title }}</h5>
+                                    <p class="card-text">
+                                        {{ row.description }}.
+                                    </p>
+                                    <a href="#!" class="btn btn-primary">Read</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Post title</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the
-                                card's content.
-                            </p>
-                            <a href="#!" class="btn btn-primary">Read</a>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/023.jpg" class="img-fluid"/>
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Post title</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the
-                                card's content.
-                            </p>
-                            <a href="#!" class="btn btn-primary">Read</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" class="img-fluid"/>
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Post title</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the
-                                card's content.
-                            </p>
-                            <a href="#!" class="btn btn-primary">Read</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/002.jpg" class="img-fluid"/>
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Post title</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the
-                                card's content.
-                            </p>
-                            <a href="#!" class="btn btn-primary">Read</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/022.jpg" class="img-fluid"/>
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Post title</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the
-                                card's content.
-                            </p>
-                            <a href="#!" class="btn btn-primary">Read</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/035.jpg" class="img-fluid"/>
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Post title</h5>
-                            <p class="card-text">
-                                Some quick example text to build on the card title and make up the bulk of the
-                                card's content.
-                            </p>
-                            <a href="#!" class="btn btn-primary">Read</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </section>
         <!--Section: Content-->
 
         <!-- Pagination -->
+
         <nav class="my-4" aria-label="...">
             <ul class="pagination pagination-circle justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
+               {% if page_obj.has_previous %}
+<li class="page-item">
+  <a class="page-link" href="?page=1" aria-label="Previous">
+    <span aria-hidden="true">&laquo;</span>
+    <span class="sr-only">begin</span>
+  </a>
+</li>   {% endif %}
+
+{% for n in page_obj.paginator.page_range %}
+  {% if page_obj.number == n %}
+    <li class="page-item active">
+      <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+    </li>
+  {% elif n > page_obj.number|add:'-3' and n < page_obj.number|add:'3' %}
+    <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+  {% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+  <li class="page-item">
+    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+      <span class="sr-only">end</span>
+    </a>
+  </li>
+  {% endif %}
             </ul>
         </nav>
     </div>
@@ -240,15 +176,6 @@
 
 <!--Footer-->
 <footer class="bg-light text-lg-start">
-    {#    <div class="py-4 text-center">#}
-    {#      <a role="button" class="btn btn-primary btn-lg m-2"#}
-    {#        href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow" target="_blank">#}
-    {#        Learn Bootstrap 5#}
-    {#      </a>#}
-    {#      <a role="button" class="btn btn-primary btn-lg m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank">#}
-    {#        Download MDB UI KIT#}
-    {#      </a>#}
-    {#    </div>#}
 
     <hr class="m-0"/>
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
