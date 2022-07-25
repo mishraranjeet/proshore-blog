@@ -115,16 +115,17 @@
             <div class="row">
                 <div class="col-md-8 mb-4">
                     <div class="card">
-                        <form>
+                        <form method="post" action="/blog-edit/{{ blog_id }}" enctype="multipart/form-data">
+                            {% csrf_token %}
                             <!-- Email input -->
                             <div class="form-outline mb-2">
                                 <input type="text" name="title" id="form1Example1" class="form-control"
-                                value="{{ row.title }}"/>
+                                value="{{ row.title }}" minlength="2" />
                                 <label class="form-label" for="form1Example1">Title</label>
                             </div>
                             <div class="form-outline mb-2">
                                 <input type="text" name="blog_image_url" id="form1Example1" class="form-control"
-                                value="{{ row.blog_image_url }}"/>
+                                value="{{ row.blog_image_url }}" minlength="2"/>
                                 <label class="form-label" for="form1Example1">Blog Image URL</label>
                             </div>
                             <div class="form-outline mb-2">
@@ -133,23 +134,23 @@
                             </div>
                             <div class="form-outline mb-2">
                                 <input type="text" name="author_name" id="form1Example1" class="form-control"
-                                value="{{ row.author_name }}"/>
+                                value="{{ row.author_name }}" minlength="2"/>
                                 <label class="form-label" for="form1Example1">Author Name</label>
                             </div>
                             <div class="form-outline mb-2">
                                 <input type="text" name="author_image_url" id="form1Example1" class="form-control"
-                                value="{{ row.author_image_url }}"/>
+                                value="{{ row.author_image_url }}" minlength="2"/>
                                 <label class="form-label" for="form1Example1">Author Image URL</label>
                             </div>
                             <div class="form-outline mb-2">
                                 <input type="text" name="designation" id="form1Example1" class="form-control"
-                                value="{{ row.designation }}"/>
+                                value="{{ row.designation }}" minlength="2"/>
                                 <label class="form-label" for="form1Example1">Designation</label>
                             </div>
 
                             <div class="form-outline mb-2">
                                 <input type="text" name="reading_time" id="form1Example1" class="form-control"
-                                value="{{ row.reading_time }}"/>
+                                value="{{ row.reading_time }}" minlength="2"/>
                                 <label class="form-label" for="form1Example1">Reading Time</label>
                             </div>
 

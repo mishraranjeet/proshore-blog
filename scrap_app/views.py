@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.db.models import Q
@@ -57,8 +59,43 @@ def blog_delete(request, blog_id):
 
 
 def blog_edit(request, blog_id):
-    blog = Blog.objects.filter(pk=int(blog_id)).first()
+    blog = Blog.objects.get(pk=int(blog_id))
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        blog_image_url = request.POST.get("blog_image_url")
+        author_name = request.POST.get("author_name")
+        author_image_url = request.POST.get("author_image_url")
+        designation = request.POST.get("designation")
+        reading_time = request.POST.get("reading_time")
 
+        print(title, designation, blog_image_url, author_image_url, author_name, designation, reading_time)
+
+        if blog.title != title:
+            blog.title = title
+
+        if blog.description != description:
+            blog.description = description
+
+        if blog.blog_image_url != blog_image_url:
+            blog.blog_image_url = blog_image_url
+
+        if blog.author_name != author_name:
+            blog.author_name = author_name
+
+        if blog.author_image_url != author_image_url:
+            blog.author_image_url = author_image_url
+
+        if blog.designation != designation:
+            blog.designation = designation
+
+        if blog.reading_time != reading_time:
+            blog.reading_time = reading_time
+
+        blog.updated_on = datetime.datetime.now()
+        blog.save()
+
+        return redirect('blog_detail', blog_id)
     context = {
         "row": blog,
         "blog_id": blog_id
