@@ -30,6 +30,7 @@ Steps to run the project.
 2. run this commnad to install dependencies : pip3 install -r requirements.txt
 3. After installation of dependencies, To run the project these are commands:  
     command one: bash run.sh
+    command one: python3 manage.py runserver
 
 ```
 
